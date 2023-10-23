@@ -6,8 +6,8 @@ pub fn find_matches(key string, index map[string][]string) []string {
 	// Find similar terms.
 	for term in index.keys() {
 		// Normalize terms.
-		norm := normalize_terms(key, term)
-		prob := evaluate_match_probability(norm)
+		new_key, new_term := normalize_terms(key, term)
+		prob := evaluate_match_probability(new_key, new_term)
 		if prob > 0.50 {
 			mattches << term
 		}
@@ -16,12 +16,7 @@ pub fn find_matches(key string, index map[string][]string) []string {
 	return mattches
 }
 
-struct NormalizedTerm {
-	key  string
-	term string
-}
-
-fn normalize_terms(key string, term string) NormalizedTerm {
+fn normalize_terms(key string, term string) (string, string) {
 	mut new_key := key.clone()
 	mut new_term := term.clone()
 
@@ -38,27 +33,24 @@ fn normalize_terms(key string, term string) NormalizedTerm {
 		new_key = new_key + ' '.repeat(diff)
 	}
 
-	return NormalizedTerm{
-		key: new_key
-		term: new_term
-	}
+	return new_key, new_term
 }
 
-fn count_mattch(norm NormalizedTerm) u8 {
+fn count_mattch(key string, term string) u8 {
 	mut total_mattch := u8(0)
-	for i in 0 .. norm.key.len_utf8() {
-		if norm.key[i].str() == norm.term[i].str() {
+	for i in 0 .. key.len_utf8() {
+		if key[i].str() == term[i].str() {
 			total_mattch++
 		}
 	}
 	return total_mattch
 }
 
-fn evaluate_match_probability(norm NormalizedTerm) f32 {
+fn evaluate_match_probability(key string, term string) f32 {
 	// Now the strings have the same size,
 	// let's compare each character to other.
-	total_mattch := count_mattch(norm)
+	total_mattch := count_mattch(key, term)
 
 	// Find the probability.
-	return f32(total_mattch) / f32(norm.key.len_utf8())
+	return f32(total_mattch) / f32(key.len_utf8())
 }
