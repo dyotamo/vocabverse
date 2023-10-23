@@ -14,10 +14,10 @@ pub fn App.new() App {
 
 ['/']
 fn (mut app App) page_home() vweb.Result {
-	key := app.query['key'].to_lower()
+	key := app.query['q'].to_lower()
 	if key == '' {
 		app.set_status(400, '')
-		return app.text('no key informed.')
+		return app.text('no query informed.')
 	}
 
 	result := util.idx[key]
@@ -26,7 +26,7 @@ fn (mut app App) page_home() vweb.Result {
 		if result.len == 4 {
 			last := result[2]
 			if last.starts_with('{') && last.ends_with('}') {
-				return app.redirect('/?key=${last[1..last.len_utf8() - 1]}')
+				return app.redirect('/?q=${last[1..last.len_utf8() - 1]}')
 			}
 		}
 
