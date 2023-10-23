@@ -1,0 +1,21 @@
+stages:
+  - test
+  - build
+  - push
+
+test:
+  stage: test
+  script:
+    - echo test
+
+build:
+  stage: build
+  script:
+    - echo build
+
+push:
+  stage: push
+  script:
+    - echo push
+  only:
+    - master
