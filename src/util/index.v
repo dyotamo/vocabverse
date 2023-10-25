@@ -1,14 +1,15 @@
 module util
 
-import os
 import log
 
 pub fn build_index() map[string][]string {
-	log.info('Mounting databse index...')
+	log.info('Mounting dictionary index...')
+
 	mut index := map[string][]string{}
-	lines := os.read_lines('assets/dictionary') or { panic(err) }
 	mut term := ''
-	for line in lines {
+
+	dict := $embed_file('assets/dictionary').to_string()
+	for line in dict.split('\n') {
 		if (!line.starts_with('\t')) && line != '' {
 			// This is a term
 			term = line.to_lower()
@@ -19,5 +20,7 @@ pub fn build_index() map[string][]string {
 			index[term] << line.trim_indent()
 		}
 	}
+
+	log.info('Index mounted...')
 	return index
 }
