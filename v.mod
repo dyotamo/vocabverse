@@ -1,7 +1,8 @@
 Module {
 	name: 'vocabverse'
-	description: ''
-	version: '1.3.1'
+	description: 'Simple informatics dictionary by mxyzptlk.'
+	version: '1.5.0'
 	license: 'MIT'
+	author: 'mxyzptlk'
 	dependencies: []
 }
