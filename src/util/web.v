@@ -1,7 +1,6 @@
 module util
 
 import vweb
-import log
 
 struct App {
 	vweb.Context
@@ -13,10 +12,6 @@ pub fn App.new() App {
 	return App{
 		index: build_index()
 	}
-}
-
-pub fn (mut app App) before_request() {
-	log.info('Request from ${app.req.host}!')
 }
 
 ['/'; get]

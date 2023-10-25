@@ -1,5 +1,3 @@
-module main
-
 import util
 import vweb
 
