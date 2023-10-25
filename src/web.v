@@ -1,5 +1,3 @@
-module util
-
 import vweb
 
 struct App {

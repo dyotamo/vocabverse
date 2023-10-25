@@ -1,5 +1,3 @@
-module util
-
 pub fn find_matches(key string, index map[string][]string) []string {
 	mut mattches := []string{}
 

@@ -1,4 +1,3 @@
-import util
 import vweb
 
 const (
@@ -6,5 +5,5 @@ const (
 )
 
 fn main() {
-	vweb.run(util.App.new(), port)
+	vweb.run(App.new(), port)
 }

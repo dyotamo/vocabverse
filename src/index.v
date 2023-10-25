@@ -1,5 +1,3 @@
-module util
-
 import log
 
 pub fn build_index() map[string][]string {
