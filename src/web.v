@@ -23,7 +23,7 @@ fn (mut app App) page_home() vweb.Result {
 	key := app.query['q'].to_lower()
 	if key == '' {
 		app.set_status(400, '')
-		msg += 'no query informed.'
+		msg += 'no query informed! use "q" query param to do so.'
 		return app.text(msg)
 	}
 
