@@ -7,7 +7,7 @@ WORKDIR /app
 COPY . .
 
 # Build the V application
-RUN v -o /app/myapp .
+RUN v -prod -o /app/myapp .
 
 # Stage 2: Create a lightweight image for the V application
 FROM alpine:3.18.4
