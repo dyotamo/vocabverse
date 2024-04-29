@@ -2,17 +2,18 @@ module util
 
 import vweb
 
-const idx = build_index()
-
 struct App {
 	vweb.Context
+	index map[string][]string
 }
 
-pub fn App.new() App {
-	return App{}
+pub fn App.new(index map[string][]string) App {
+	return App{
+		index: index
+	}
 }
 
-['/']
+@['/']
 fn (mut app App) page_home() vweb.Result {
 	key := app.query['q'].to_lower()
 	if key == '' {
@@ -20,7 +21,9 @@ fn (mut app App) page_home() vweb.Result {
 		return app.text('no query informed.')
 	}
 
-	result := util.idx[key]
+	println(app.index)
+
+	result := app.index[key]
 	if result != [] {
 		// Evaluate redirection.
 		if result.len == 4 {
@@ -32,7 +35,7 @@ fn (mut app App) page_home() vweb.Result {
 
 		return app.text(result.join('\n'))
 	} else {
-		matches := find_matches(key, util.idx)
+		matches := find_matches(key, app.index)
 		app.set_status(404, '')
 
 		mut msg := 'oops, [${key}] was not found!'

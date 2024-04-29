@@ -6,5 +6,5 @@ import vweb
 const port = 8080
 
 fn main() {
-	vweb.run(util.App.new(), 8080)
+	vweb.run(util.App.new(util.build_index()), 8080)
 }

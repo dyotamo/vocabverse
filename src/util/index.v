@@ -1,12 +1,10 @@
 module util
 
-import os
-import log
-
 pub fn build_index() map[string][]string {
-	log.info('Mounting databse index...')
 	mut index := map[string][]string{}
-	lines := os.read_lines('assets/dictionary') or { panic(err) }
+
+	dict := $embed_file('assets/dictionary').to_string()
+	lines := dict.split('\n')
 	mut term := ''
 	for line in lines {
 		if (!line.starts_with('\t')) && line != '' {
