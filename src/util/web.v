@@ -4,7 +4,7 @@ import vweb
 
 struct App {
 	vweb.Context
-	index map[string][]string
+	index map[string][]string @[vweb_global]
 }
 
 pub fn App.new(index map[string][]string) App {
@@ -20,8 +20,6 @@ fn (mut app App) page_home() vweb.Result {
 		app.set_status(400, '')
 		return app.text('no query informed.')
 	}
-
-	println(app.index)
 
 	result := app.index[key]
 	if result != [] {

@@ -3,7 +3,7 @@ module util
 pub fn build_index() map[string][]string {
 	mut index := map[string][]string{}
 
-	dict := $embed_file('assets/dictionary').to_string()
+	dict := $embed_file('assets/dictionary', .zlib).to_string()
 	lines := dict.split('\n')
 	mut term := ''
 	for line in lines {
@@ -17,5 +17,6 @@ pub fn build_index() map[string][]string {
 			index[term] << line.trim_indent()
 		}
 	}
+
 	return index
 }
